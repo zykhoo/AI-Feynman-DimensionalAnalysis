@@ -124,6 +124,7 @@ def dimensionalAnalysis(pathdir, filename, eq_symbols):
             np.savetxt(pathdir + filename + "_dim_red", new_dependent)
 
         # save this to file
+        print(new_vars, new_dependent)
         all_variables = np.vstack((new_vars, new_dependent)).T
         np.savetxt(pathdir + filename + "_dim_red", all_variables)
 
