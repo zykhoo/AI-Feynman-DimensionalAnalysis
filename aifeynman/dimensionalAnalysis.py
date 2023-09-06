@@ -6,6 +6,7 @@ from sympy import Matrix
 from sympy import symbols, Add, Mul, S
 from .getPowers import getPowers
 import os
+from scipy.linalg import null_space
 
 def dimensional_analysis(input,output,units):
     print("here", input,output,units)
@@ -19,7 +20,7 @@ def dimensional_analysis(input,output,units):
     params = getPowers(M,units[output])
     print("params",params)
     M = Matrix(M)
-    B = M.nullspace(rcond=1e-14)
+    B = M.null_space(np.array(M).astype("float64"))
     print("B",B)
     return (params, B)
 
