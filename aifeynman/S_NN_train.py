@@ -116,7 +116,7 @@ def NN_train(pathdir, filename, epochs=1000, lrs=1e-2, N_red_lr=4, pretrained_pa
 
         for i_i in range(N_red_lr):
             optimizer_feynman = optim.Adam(model_feynman.parameters(), lr = lrs)
-            for epoch in range(epochs):
+            for epoch in range(int(epochs))
                 model_feynman.train()
                 for i, data in enumerate(my_dataloader):
                     optimizer_feynman.zero_grad()
