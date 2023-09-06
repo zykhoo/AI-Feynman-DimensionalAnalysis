@@ -6,22 +6,17 @@ from sympy import Matrix
 from sympy import symbols, Add, Mul, S
 from .getPowers import getPowers
 import os
-from scipy.linalg import null_space
 
 def dimensional_analysis(input,output,units):
-    print("here", input,output,units)
     M = units[input[0]]
     for i in range(1,len(input)):
         M = np.c_[M, units[input[i]]]
     if len(input)==1:
         M = np.array(M)
         M = np.reshape(M,(len(M),1))
-    print(len(input), M)
     params = getPowers(M,units[output])
-    print("params",params)
-    # M = Matrix(M)
-    B = null_space(np.array(M).astype("float64"))
-    print("B",B)
+    M = Matrix(M)
+    B = M.nullspace()
     return (params, B)
 
 # load the data from a file
@@ -43,10 +38,8 @@ def dimensionalAnalysis(pathdir, filename, eq_symbols):
         val = [file["m"][i],file["s"][i],file["kg"][i],file["T"][i],file["V"][i],file["cd"][i]]
         val = np.array(val)
         units[file["Variable"][i]] = val
-    print(units)
 
     dependent_var = eq_symbols[-1]
-    print(dependent_var)
 
     file_sym = open(filename + "_dim_red_variables.txt" ,"w")
     file_sym.write(filename)
@@ -55,7 +48,6 @@ def dimensionalAnalysis(pathdir, filename, eq_symbols):
     # load the data corresponding to the first line (from mystery_world)
     varibs = load_data(pathdir,filename)[0]
     deps = load_data(pathdir,filename)[1]
-    print(varibs, deps)
 
     # get the data in symbolic form and associate the corresponding values to it
     input = []
@@ -112,7 +104,6 @@ def dimensionalAnalysis(pathdir, filename, eq_symbols):
         for j in range(len(input)):
             func = func * vars()[input[j]]**dimensional_analysis(input,output,units)[0][j]
         func = np.array(func)
-        print(func)
 
         # get the new variables needed
         new_vars = []
@@ -134,5 +125,3 @@ def dimensionalAnalysis(pathdir, filename, eq_symbols):
         np.savetxt(pathdir + filename + "_dim_red", all_variables)
 
     file_sym.close()
-
-
