@@ -5,6 +5,7 @@ from scipy.linalg import *
 from sympy import Matrix
 from sympy import symbols, Add, Mul, S
 from .getPowers import getPowers
+import os
 
 def dimensional_analysis(input,output,units):
     M = units[input[0]]
@@ -29,9 +30,8 @@ def load_data(pathdir, filename):
     return(variables.T,f_dependent)
 
 def dimensionalAnalysis(pathdir, filename, eq_symbols):
-    import os
-    print(os.getcwd())
-    file = pd.read_excel("/units.xlsx")
+    
+    file = pd.read_excel(os.getcwd()+"/units.xlsx")
     print(file)
 
     units = {}
