@@ -19,7 +19,7 @@ def dimensional_analysis(input,output,units):
     params = getPowers(M,units[output])
     print("params",params)
     M = Matrix(M)
-    B = M.nullspace()
+    B = M.nullspace(rcond=1e-14)
     print("B",B)
     return (params, B)
 
