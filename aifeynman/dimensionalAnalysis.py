@@ -32,7 +32,6 @@ def load_data(pathdir, filename):
 def dimensionalAnalysis(pathdir, filename, eq_symbols):
     
     file = pd.read_csv(os.getcwd()+"/units.csv")
-    print(file)
 
     units = {}
     for i in range(len(file["Variable"])):
@@ -42,12 +41,14 @@ def dimensionalAnalysis(pathdir, filename, eq_symbols):
     print(units)
 
     dependent_var = eq_symbols[-1]
+    print(dependent_var)
 
     file_sym = open(filename + "_dim_red_variables.txt" ,"w")
     file_sym.write(filename)
     file_sym.write(", ")
 
     # load the data corresponding to the first line (from mystery_world)
+    print(load_data(pathdir,filename))
     varibs = load_data(pathdir,filename)[0]
     deps = load_data(pathdir,filename)[1]
     print(varibs, deps)
