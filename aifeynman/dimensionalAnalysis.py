@@ -31,7 +31,7 @@ def load_data(pathdir, filename):
 
 def dimensionalAnalysis(pathdir, filename, eq_symbols):
     
-    file = pd.read_excel(os.getcwd()+"/units.csv")
+    file = pd.read_csv(os.getcwd()+"/units.csv")
     print(file)
 
     units = {}
