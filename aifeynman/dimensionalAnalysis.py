@@ -30,6 +30,7 @@ def load_data(pathdir, filename):
 
 def dimensionalAnalysis(pathdir, filename, eq_symbols):
     file = pd.read_excel("units.xlsx")
+    print(file)
 
     units = {}
     for i in range(len(file["Variable"])):
