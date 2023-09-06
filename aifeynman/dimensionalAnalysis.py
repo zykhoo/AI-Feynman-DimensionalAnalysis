@@ -49,8 +49,8 @@ def dimensionalAnalysis(pathdir, filename, eq_symbols):
 
     # load the data corresponding to the first line (from mystery_world)
     print(load_data(pathdir,filename))
-    varibs = load_data(pathdir,filename)[0]
-    deps = load_data(pathdir,filename)[1]
+    varibs = load_data(pathdir,filename)[0].T[0]
+    deps = load_data(pathdir,filename)[1][0]
     print(varibs, deps)
 
     # get the data in symbolic form and associate the corresponding values to it
@@ -59,6 +59,7 @@ def dimensionalAnalysis(pathdir, filename, eq_symbols):
         input = input + [eq_symbols[i]]
         vars()[eq_symbols[i]] = varibs[i]
     output = dependent_var
+    print(vars(),output)
 
     # Check if all the independent variables are dimensionless
     ok = 0
