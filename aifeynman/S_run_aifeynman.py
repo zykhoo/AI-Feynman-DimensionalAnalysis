@@ -250,6 +250,7 @@ def run_aifeynman(pathdir,filename,BF_try_time,BF_ops_file_type, polyfit_deg=4, 
     filename_orig = filename
     try:
         if vars_name!=[]:
+            print("doing dimensional analysis")
             dimensionalAnalysis(pathdir,filename,vars_name)
             DR_file = filename + "_dim_red_variables.txt"
             filename = filename + "_dim_red"
