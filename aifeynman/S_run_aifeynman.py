@@ -248,16 +248,16 @@ def run_AI_all(pathdir,filename,BF_try_time=60,BF_ops_file_type="14ops", polyfit
 def run_aifeynman(pathdir,filename,BF_try_time,BF_ops_file_type, polyfit_deg=4, NN_epochs=4000, vars_name=[],test_percentage=20):
     # If the variable names are passed, do the dimensional analysis first
     filename_orig = filename
-    # try:
-    if vars_name!=[]:
-        print("doing dimensional analysis")
-        dimensionalAnalysis(pathdir,filename,vars_name)
-        DR_file = filename + "_dim_red_variables.txt"
-        filename = filename + "_dim_red"
-    else:
+    try:
+        if vars_name!=[]:
+            print("doing dimensional analysis")
+            dimensionalAnalysis(pathdir,filename,vars_name)
+            DR_file = filename + "_dim_red_variables.txt"
+            filename = filename + "_dim_red"
+        else:
+            DR_file = ""
+    except:
         DR_file = ""
-    # except:
-    #     DR_file = ""
 
     # Split the data into train and test set
     input_data = np.loadtxt(pathdir+filename)
