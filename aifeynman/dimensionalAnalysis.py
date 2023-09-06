@@ -48,9 +48,8 @@ def dimensionalAnalysis(pathdir, filename, eq_symbols):
     file_sym.write(", ")
 
     # load the data corresponding to the first line (from mystery_world)
-    print(load_data(pathdir,filename))
-    varibs = load_data(pathdir,filename)[0].T[0]
-    deps = load_data(pathdir,filename)[1][0]
+    varibs = load_data(pathdir,filename)[0]
+    deps = load_data(pathdir,filename)[1]
     print(varibs, deps)
 
     # get the data in symbolic form and associate the corresponding values to it
@@ -59,15 +58,14 @@ def dimensionalAnalysis(pathdir, filename, eq_symbols):
         input = input + [eq_symbols[i]]
         vars()[eq_symbols[i]] = varibs[i]
     output = dependent_var
-    print(vars(),output)
 
     # Check if all the independent variables are dimensionless
     ok = 0
     for j in range(len(input)):
-        if(units[input[j]].any()):
+        if(units[input[j]].any()): # checks if any of the dimensions are nonzero
             ok=1
 
-    if ok==0:
+    if ok==0: # all the data is dimensionless 
         dimless_data = load_data(pathdir, filename)[0].T
         dimless_dep = load_data(pathdir, filename)[1]
         if dimless_data.ndim==1:
@@ -109,6 +107,7 @@ def dimensionalAnalysis(pathdir, filename, eq_symbols):
         for j in range(len(input)):
             func = func * vars()[input[j]]**dimensional_analysis(input,output,units)[0][j]
         func = np.array(func)
+        print(func)
 
         # get the new variables needed
         new_vars = []
@@ -125,7 +124,6 @@ def dimensionalAnalysis(pathdir, filename, eq_symbols):
             np.savetxt(pathdir + filename + "_dim_red", new_dependent)
 
         # save this to file
-        print(new_vars, new_dependent)
         all_variables = np.vstack((new_vars, new_dependent)).T
         np.savetxt(pathdir + filename + "_dim_red", all_variables)
 
