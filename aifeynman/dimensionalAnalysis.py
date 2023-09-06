@@ -31,7 +31,7 @@ def load_data(pathdir, filename):
 def dimensionalAnalysis(pathdir, filename, eq_symbols):
     import os
     print(os.getcwd())
-    file = pd.read_excel("units.xlsx")
+    file = pd.read_excel("/units.xlsx")
     print(file)
 
     units = {}
@@ -39,6 +39,7 @@ def dimensionalAnalysis(pathdir, filename, eq_symbols):
         val = [file["m"][i],file["s"][i],file["kg"][i],file["T"][i],file["V"][i],file["cd"][i]]
         val = np.array(val)
         units[file["Variable"][i]] = val
+    print(units)
 
     dependent_var = eq_symbols[-1]
 
@@ -49,6 +50,7 @@ def dimensionalAnalysis(pathdir, filename, eq_symbols):
     # load the data corresponding to the first line (from mystery_world)
     varibs = load_data(pathdir,filename)[0]
     deps = load_data(pathdir,filename)[1]
+    print(varibs, deps)
 
     # get the data in symbolic form and associate the corresponding values to it
     input = []
