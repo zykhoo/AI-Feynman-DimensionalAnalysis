@@ -8,15 +8,19 @@ from .getPowers import getPowers
 import os
 
 def dimensional_analysis(input,output,units):
+    print("here", input,output,units)
     M = units[input[0]]
     for i in range(1,len(input)):
         M = np.c_[M, units[input[i]]]
     if len(input)==1:
         M = np.array(M)
         M = np.reshape(M,(len(M),1))
+    print(len(input), M)
     params = getPowers(M,units[output])
+    print("params",params)
     M = Matrix(M)
     B = M.nullspace()
+    print("B",B)
     return (params, B)
 
 # load the data from a file
