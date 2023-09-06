@@ -114,6 +114,7 @@ def dimensionalAnalysis(pathdir, filename, eq_symbols):
         for i in range(len(dimensional_analysis(input,output,units)[1])):
             nv = 1
             for j in range(len(input)):
+                print(vars()[input[j]], dimensional_analysis(input,output,units)[1][i][j])
                 nv = nv*vars()[input[j]]**dimensional_analysis(input,output,units)[1][i][j]
             new_vars = new_vars + [nv]
 
